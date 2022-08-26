@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{01cbbf4a-a5ba-44f2-a2a4-674444572b3e}</ProjectGuid>
+    <RootNamespace>bbs</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>bbs</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(Configuration)\</IntDir>
+    <TargetExt>.asi</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(Configuration)\</IntDir>
+    <TargetExt>.asi</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;BBS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>lib;lib/python</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;python38.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>lib;lib/python</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;BBS_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>lib;lib/python</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DebugInformationFormat>None</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;python38.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>lib;lib/python</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+    <PostBuildEvent>
+      <Command>Powershell.exe -file "$(SolutionDir)build.ps1" -d</Command>
+      <Message>Running post-build script</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="build.ps1" />
+    <None Include="resources\defaultLang.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lib\pybind11\attr.h" />
+    <ClInclude Include="lib\pybind11\buffer_info.h" />
+    <ClInclude Include="lib\pybind11\cast.h" />
+    <ClInclude Include="lib\pybind11\chrono.h" />
+    <ClInclude Include="lib\pybind11\common.h" />
+    <ClInclude Include="lib\pybind11\complex.h" />
+    <ClInclude Include="lib\pybind11\detail\class.h" />
+    <ClInclude Include="lib\pybind11\detail\common.h" />
+    <ClInclude Include="lib\pybind11\detail\descr.h" />
+    <ClInclude Include="lib\pybind11\detail\init.h" />
+    <ClInclude Include="lib\pybind11\detail\internals.h" />
+    <ClInclude Include="lib\pybind11\detail\typeid.h" />
+    <ClInclude Include="lib\pybind11\detail\type_caster_base.h" />
+    <ClInclude Include="lib\pybind11\eigen.h" />
+    <ClInclude Include="lib\pybind11\embed.h" />
+    <ClInclude Include="lib\pybind11\eval.h" />
+    <ClInclude Include="lib\pybind11\functional.h" />
+    <ClInclude Include="lib\pybind11\gil.h" />
+    <ClInclude Include="lib\pybind11\iostream.h" />
+    <ClInclude Include="lib\pybind11\numpy.h" />
+    <ClInclude Include="lib\pybind11\operators.h" />
+    <ClInclude Include="lib\pybind11\options.h" />
+    <ClInclude Include="lib\pybind11\pybind11.h" />
+    <ClInclude Include="lib\pybind11\pytypes.h" />
+    <ClInclude Include="lib\pybind11\stl.h" />
+    <ClInclude Include="lib\pybind11\stl\filesystem.h" />
+    <ClInclude Include="lib\pybind11\stl_bind.h" />
+    <ClInclude Include="lib\python\abstract.h" />
+    <ClInclude Include="lib\python\asdl.h" />
+    <ClInclude Include="lib\python\ast.h" />
+    <ClInclude Include="lib\python\bitset.h" />
+    <ClInclude Include="lib\python\bltinmodule.h" />
+    <ClInclude Include="lib\python\boolobject.h" />
+    <ClInclude Include="lib\python\bytearrayobject.h" />
+    <ClInclude Include="lib\python\bytesobject.h" />
+    <ClInclude Include="lib\python\bytes_methods.h" />
+    <ClInclude Include="lib\python\cellobject.h" />
+    <ClInclude Include="lib\python\ceval.h" />
+    <ClInclude Include="lib\python\classobject.h" />
+    <ClInclude Include="lib\python\code.h" />
+    <ClInclude Include="lib\python\codecs.h" />
+    <ClInclude Include="lib\python\compile.h" />
+    <ClInclude Include="lib\python\complexobject.h" />
+    <ClInclude Include="lib\python\context.h" />
+    <ClInclude Include="lib\python\cpython\abstract.h" />
+    <ClInclude Include="lib\python\cpython\dictobject.h" />
+    <ClInclude Include="lib\python\cpython\fileobject.h" />
+    <ClInclude Include="lib\python\cpython\initconfig.h" />
+    <ClInclude Include="lib\python\cpython\interpreteridobject.h" />
+    <ClInclude Include="lib\python\cpython\object.h" />
+    <ClInclude Include="lib\python\cpython\objimpl.h" />
+    <ClInclude Include="lib\python\cpython\pyerrors.h" />
+    <ClInclude Include="lib\python\cpython\pylifecycle.h" />
+    <ClInclude Include="lib\python\cpython\pymem.h" />
+    <ClInclude Include="lib\python\cpython\pystate.h" />
+    <ClInclude Include="lib\python\cpython\sysmodule.h" />
+    <ClInclude Include="lib\python\cpython\traceback.h" />
+    <ClInclude Include="lib\python\cpython\tupleobject.h" />
+    <ClInclude Include="lib\python\cpython\unicodeobject.h" />
+    <ClInclude Include="lib\python\datetime.h" />
+    <ClInclude Include="lib\python\descrobject.h" />
+    <ClInclude Include="lib\python\dictobject.h" />
+    <ClInclude Include="lib\python\dtoa.h" />
+    <ClInclude Include="lib\python\dynamic_annotations.h" />
+    <ClInclude Include="lib\python\enumobject.h" />
+    <ClInclude Include="lib\python\errcode.h" />
+    <ClInclude Include="lib\python\eval.h" />
+    <ClInclude Include="lib\python\fileobject.h" />
+    <ClInclude Include="lib\python\fileutils.h" />
+    <ClInclude Include="lib\python\floatobject.h" />
+    <ClInclude Include="lib\python\frameobject.h" />
+    <ClInclude Include="lib\python\funcobject.h" />
+    <ClInclude Include="lib\python\genobject.h" />
+    <ClInclude Include="lib\python\graminit.h" />
+    <ClInclude Include="lib\python\grammar.h" />
+    <ClInclude Include="lib\python\import.h" />
+    <ClInclude Include="lib\python\internal\pycore_accu.h" />
+    <ClInclude Include="lib\python\internal\pycore_atomic.h" />
+    <ClInclude Include="lib\python\internal\pycore_ceval.h" />
+    <ClInclude Include="lib\python\internal\pycore_code.h" />
+    <ClInclude Include="lib\python\internal\pycore_condvar.h" />
+    <ClInclude Include="lib\python\internal\pycore_context.h" />
+    <ClInclude Include="lib\python\internal\pycore_fileutils.h" />
+    <ClInclude Include="lib\python\internal\pycore_getopt.h" />
+    <ClInclude Include="lib\python\internal\pycore_gil.h" />
+    <ClInclude Include="lib\python\internal\pycore_hamt.h" />
+    <ClInclude Include="lib\python\internal\pycore_initconfig.h" />
+    <ClInclude Include="lib\python\internal\pycore_object.h" />
+    <ClInclude Include="lib\python\internal\pycore_pathconfig.h" />
+    <ClInclude Include="lib\python\internal\pycore_pyerrors.h" />
+    <ClInclude Include="lib\python\internal\pycore_pyhash.h" />
+    <ClInclude Include="lib\python\internal\pycore_pylifecycle.h" />
+    <ClInclude Include="lib\python\internal\pycore_pymem.h" />
+    <ClInclude Include="lib\python\internal\pycore_pystate.h" />
+    <ClInclude Include="lib\python\internal\pycore_traceback.h" />
+    <ClInclude Include="lib\python\internal\pycore_tupleobject.h" />
+    <ClInclude Include="lib\python\internal\pycore_warnings.h" />
+    <ClInclude Include="lib\python\interpreteridobject.h" />
+    <ClInclude Include="lib\python\intrcheck.h" />
+    <ClInclude Include="lib\python\iterobject.h" />
+    <ClInclude Include="lib\python\listobject.h" />
+    <ClInclude Include="lib\python\longintrepr.h" />
+    <ClInclude Include="lib\python\longobject.h" />
+    <ClInclude Include="lib\python\marshal.h" />
+    <ClInclude Include="lib\python\memoryobject.h" />
+    <ClInclude Include="lib\python\methodobject.h" />
+    <ClInclude Include="lib\python\modsupport.h" />
+    <ClInclude Include="lib\python\moduleobject.h" />
+    <ClInclude Include="lib\python\namespaceobject.h" />
+    <ClInclude Include="lib\python\node.h" />
+    <ClInclude Include="lib\python\object.h" />
+    <ClInclude Include="lib\python\objimpl.h" />
+    <ClInclude Include="lib\python\odictobject.h" />
+    <ClInclude Include="lib\python\opcode.h" />
+    <ClInclude Include="lib\python\osdefs.h" />
+    <ClInclude Include="lib\python\osmodule.h" />
+    <ClInclude Include="lib\python\parsetok.h" />
+    <ClInclude Include="lib\python\patchlevel.h" />
+    <ClInclude Include="lib\python\picklebufobject.h" />
+    <ClInclude Include="lib\python\pyarena.h" />
+    <ClInclude Include="lib\python\pycapsule.h" />
+    <ClInclude Include="lib\python\pyconfig.h" />
+    <ClInclude Include="lib\python\pyctype.h" />
+    <ClInclude Include="lib\python\pydebug.h" />
+    <ClInclude Include="lib\python\pydtrace.h" />
+    <ClInclude Include="lib\python\pyerrors.h" />
+    <ClInclude Include="lib\python\pyexpat.h" />
+    <ClInclude Include="lib\python\pyfpe.h" />
+    <ClInclude Include="lib\python\pyhash.h" />
+    <ClInclude Include="lib\python\pylifecycle.h" />
+    <ClInclude Include="lib\python\pymacconfig.h" />
+    <ClInclude Include="lib\python\pymacro.h" />
+    <ClInclude Include="lib\python\pymath.h" />
+    <ClInclude Include="lib\python\pymem.h" />
+    <ClInclude Include="lib\python\pyport.h" />
+    <ClInclude Include="lib\python\pystate.h" />
+    <ClInclude Include="lib\python\pystrcmp.h" />
+    <ClInclude Include="lib\python\pystrhex.h" />
+    <ClInclude Include="lib\python\pystrtod.h" />
+    <ClInclude Include="lib\python\Python-ast.h" />
+    <ClInclude Include="lib\python\Python.h" />
+    <ClInclude Include="lib\python\pythonrun.h" />
+    <ClInclude Include="lib\python\pythread.h" />
+    <ClInclude Include="lib\python\pytime.h" />
+    <ClInclude Include="lib\python\py_curses.h" />
+    <ClInclude Include="lib\python\rangeobject.h" />
+    <ClInclude Include="lib\python\setobject.h" />
+    <ClInclude Include="lib\python\sliceobject.h" />
+    <ClInclude Include="lib\python\structmember.h" />
+    <ClInclude Include="lib\python\structseq.h" />
+    <ClInclude Include="lib\python\symtable.h" />
+    <ClInclude Include="lib\python\sysmodule.h" />
+    <ClInclude Include="lib\python\token.h" />
+    <ClInclude Include="lib\python\traceback.h" />
+    <ClInclude Include="lib\python\tracemalloc.h" />
+    <ClInclude Include="lib\python\tupleobject.h" />
+    <ClInclude Include="lib\python\typeslots.h" />
+    <ClInclude Include="lib\python\ucnhash.h" />
+    <ClInclude Include="lib\python\unicodeobject.h" />
+    <ClInclude Include="lib\python\warnings.h" />
+    <ClInclude Include="lib\python\weakrefobject.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\python3.lib" />
+    <Library Include="lib\python38.lib" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
